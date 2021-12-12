@@ -4,8 +4,19 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    depends_on:
+      - db
     working_dir: /app
     volumes:
       - .:/app
     ports:
       - "8080:8080"
+  db:
+    image: postgres:latest
+    container_name: "online-store-db"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: gorm
+      POSTGRES_DB: gorm
+      POSTGRES_PASSWORD: gormdeptrai3
