@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+type GreetMessage struct {
+	Name string `json:"name" binding:"required"`
+}
+
 func main() {
 	router := gin.Default()
 
@@ -19,6 +23,12 @@ func main() {
 		context.JSON(http.StatusOK, gin.H{
 			"hello": name,
 		})
+	})
+
+	router.POST("/greeting", func(context *gin.Context) {
+		var greetMessage GreetMessage
+		name := context.BindJSON(&greetMessage)
+		context.JSON(http.StatusOK, gin.H{"hi": name})
 	})
 
 	router.Run(":8080")
