@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/stewie1520/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"net/http"
@@ -11,9 +13,16 @@ type GreetMessage struct {
 	Name string `json:"name" binding:"required"`
 }
 
+func init() {
+	config.Init()
+}
+
 func main() {
-	dsn := "host=db user=gorm password=gormdeptrai3 dbname=gorm port=5432 sslmode=disable"
-	gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	_, err := gorm.Open(postgres.Open(config.AppConfig.Database.DatabaseURL), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
@@ -35,5 +44,5 @@ func main() {
 		context.JSON(http.StatusOK, gin.H{"hi": name})
 	})
 
-	router.Run(":8080")
+	router.Run(fmt.Sprintf(":%v", config.AppConfig.Port))
 }
