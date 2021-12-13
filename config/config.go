@@ -12,8 +12,8 @@ import (
 
 type Config struct {
 	Database struct {
-		DriverName  string `mapstructure:"driver_name"`
-		DatabaseURL string `mapstructure:"database_url"`
+		DriverName string `mapstructure:"driver_name"`
+		Url        string `mapstructure:"url"`
 	} `mapstructure:"database"`
 	Port        int `mapstructure:"port"`
 	Environment string

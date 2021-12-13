@@ -18,7 +18,7 @@ func init() {
 }
 
 func main() {
-	_, err := gorm.Open(postgres.Open(config.AppConfig.Database.DatabaseURL), &gorm.Config{})
+	_, err := gorm.Open(postgres.Open(config.AppConfig.Database.Url), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
