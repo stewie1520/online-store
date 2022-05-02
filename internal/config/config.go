@@ -2,12 +2,13 @@ package config
 
 import (
 	"fmt"
-	"github.com/jessevdk/go-flags"
-	"github.com/spf13/viper"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
+
+	"github.com/jessevdk/go-flags"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -50,7 +51,7 @@ func Init() {
 			log.Panicln(err)
 		}
 
-		cli.Config = path.Join(dir, "..", "config/config.yaml")
+		cli.Config = path.Join(dir, "..", "internal/config/config.yaml")
 	}
 
 	viper.SetConfigFile(cli.Config)

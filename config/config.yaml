@@ -1,7 +1,0 @@
-default: &default
-  database:
-    driver_name: pgx
-    url: "postgres://gorm:gormdeptrai3@db:5432/gorm"
-development:
-  <<: *default
-  port: 8080
