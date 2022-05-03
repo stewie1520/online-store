@@ -1,6 +1,7 @@
 FROM golang:1.18
 
-RUN go get github.com/cespare/reflex
+RUN go install github.com/cespare/reflex@latest
+RUN go install github.com/google/wire/cmd/wire@latest
 
 COPY . /app/
 

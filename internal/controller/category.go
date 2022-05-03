@@ -11,7 +11,21 @@ import (
 	"github.com/stewie1520/internal/service"
 )
 
-func CreateCategoryController(ctx *gin.Context) {
+type categoryController struct {
+	service service.CategoryService
+}
+
+type CategoryController interface {
+	Create(*gin.Context)
+}
+
+func NewCategoryController(cs service.CategoryService) CategoryController {
+	return &categoryController{
+		service: cs,
+	}
+}
+
+func (c *categoryController) Create(ctx *gin.Context) {
 	var categoryDto dto.CreateCategoryDto
 	if err := ctx.ShouldBindJSON(&categoryDto); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -30,7 +44,7 @@ func CreateCategoryController(ctx *gin.Context) {
 
 	context := context.Background()
 
-	if category, err := service.CreateCategory(context, &createCategoryParams); err != nil {
+	if category, err := c.service.CreateCategory(context, &createCategoryParams); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": err.Error(),
 			"status":  "error",
@@ -41,5 +55,4 @@ func CreateCategoryController(ctx *gin.Context) {
 			"status":  "ok",
 		})
 	}
-	return
 }

@@ -8,3 +8,5 @@ clean:
 	rm -rf ./bin
 sqlc:
 	sqlc generate -f ./database/sqlc.yaml
+gen:
+	wire ./...

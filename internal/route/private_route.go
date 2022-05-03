@@ -1,6 +1,8 @@
 package route
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/stewie1520/internal/controller"
 )
@@ -8,6 +10,11 @@ import (
 func PrivateRoutes(router *gin.Engine) {
 	v1 := router.Group("/admin/v1")
 	{
-		v1.POST("/categories", controller.CreateCategoryController)
+		controller, err := controller.InitializeCategoryController()
+		if err != nil {
+			log.Fatalf("error initializing category controller: %v", err)
+		}
+
+		v1.POST("/categories", controller.Create)
 	}
 }

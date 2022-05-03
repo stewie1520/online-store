@@ -12,3 +12,12 @@ func OpenConnection() (*domain.Queries, error) {
 
 	return domain.New(db), nil
 }
+
+func ProvideQueries() (*domain.Queries, error) {
+	queries, err := OpenConnection()
+	if err != nil {
+		return nil, err
+	}
+
+	return queries, nil
+}

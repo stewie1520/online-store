@@ -4,8 +4,8 @@ POST {{baseUrl}}/admin/v1/categories HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Clothing",
-	"slug": "clothing",
+  "name": "Necessary",
+	"slug": "necessary",
 	"author": 1,
 	"isActive": true
 }
