@@ -5,8 +5,8 @@ package controller
 
 import (
 	"github.com/google/wire"
-	"github.com/stewie1520/internal/infrastructure/datastore"
-	"github.com/stewie1520/internal/service"
+	"github.com/stewie1520/online-store/internal/infrastructure/datastore"
+	"github.com/stewie1520/online-store/internal/service"
 )
 
 func InitializeCategoryController() (CategoryController, error) {

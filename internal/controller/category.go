@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stewie1520/internal/domain"
-	"github.com/stewie1520/internal/dto"
-	"github.com/stewie1520/internal/service"
+	"github.com/stewie1520/online-store/internal/domain"
+	"github.com/stewie1520/online-store/internal/dto"
+	"github.com/stewie1520/online-store/internal/service"
 )
 
 type categoryController struct {

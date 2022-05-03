@@ -4,12 +4,11 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/stewie1520/internal/config"
+	"github.com/stewie1520/online-store/internal/config"
 )
 
 func OpenPostgresConnection() (*sql.DB, error) {
 	db, err := sql.Open("postgres", config.AppConfig.Database.Url)
-	fmt.Println(config.AppConfig.Database.Url)
 	if err != nil {
 		return nil, err
 	}

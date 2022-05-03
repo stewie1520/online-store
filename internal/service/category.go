@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/stewie1520/internal/domain"
+	"github.com/stewie1520/online-store/internal/domain"
 )
 
 type categoryService struct {

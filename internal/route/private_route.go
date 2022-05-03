@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stewie1520/internal/controller"
+	"github.com/stewie1520/online-store/internal/controller"
 )
 
 func PrivateRoutes(router *gin.Engine) {

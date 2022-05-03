@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	"github.com/stewie1520/internal/config"
-	"github.com/stewie1520/internal/route"
+	"github.com/stewie1520/online-store/internal/config"
+	"github.com/stewie1520/online-store/internal/route"
 )
 
 func init() {

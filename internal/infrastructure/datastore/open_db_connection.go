@@ -1,7 +1,7 @@
 package datastore
 
 import (
-	"github.com/stewie1520/internal/domain"
+	"github.com/stewie1520/online-store/internal/domain"
 )
 
 func OpenConnection() (*domain.Queries, error) {
