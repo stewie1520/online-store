@@ -13,12 +13,12 @@ import (
 
 // Injectors from init_category.go:
 
-func InitializeCategoryController() (CategoryController, error) {
+func NewCategoryController() (CategoryController, error) {
 	queries, err := datastore.ProvideQueries()
 	if err != nil {
 		return nil, err
 	}
 	categoryService := service.NewCategoryService(queries)
-	controllerCategoryController := NewCategoryController(categoryService)
+	controllerCategoryController := newCategoryController(categoryService)
 	return controllerCategoryController, nil
 }

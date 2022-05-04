@@ -9,9 +9,9 @@ import (
 	"github.com/stewie1520/online-store/internal/service"
 )
 
-func InitializeCategoryController() (CategoryController, error) {
+func NewCategoryController() (CategoryController, error) {
 	wire.Build(
-		NewCategoryController,
+		newCategoryController,
 		service.NewCategoryService,
 		datastore.ProvideQueries,
 	)

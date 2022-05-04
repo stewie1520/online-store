@@ -5,7 +5,7 @@ import (
 )
 
 func OpenConnection() (*domain.Queries, error) {
-	db, err := OpenPostgresConnection()
+	db, err := NewPostgresConnection()
 	if err != nil {
 		return nil, err
 	}

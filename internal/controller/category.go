@@ -19,7 +19,7 @@ type CategoryController interface {
 	Create(*gin.Context)
 }
 
-func NewCategoryController(cs service.CategoryService) CategoryController {
+func newCategoryController(cs service.CategoryService) CategoryController {
 	return &categoryController{
 		service: cs,
 	}
@@ -42,9 +42,9 @@ func (c *categoryController) Create(ctx *gin.Context) {
 		Isactive: sql.NullBool{Bool: categoryDto.IsActive, Valid: true},
 	}
 
-	context := context.Background()
+	bgCtx := context.Background()
 
-	if category, err := c.service.CreateCategory(context, &createCategoryParams); err != nil {
+	if category, err := c.service.CreateCategory(bgCtx, &createCategoryParams); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": err.Error(),
 			"status":  "error",

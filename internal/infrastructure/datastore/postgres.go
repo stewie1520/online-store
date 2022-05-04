@@ -7,7 +7,7 @@ import (
 	"github.com/stewie1520/online-store/internal/config"
 )
 
-func OpenPostgresConnection() (*sql.DB, error) {
+func NewPostgresConnection() (*sql.DB, error) {
 	db, err := sql.Open("postgres", config.AppConfig.Database.Url)
 	if err != nil {
 		return nil, err
