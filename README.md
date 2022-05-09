@@ -9,7 +9,7 @@
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml up --build
 ```
 
-By default, the application is running in debug mode by [delve](https://github.com/go-delve/delve) under port 8181, so you will need a delve client (which almost implemented in modern IDEs, text editors...)
+By default, the application is running in debug mode by [delve](https://github.com/go-delve/delve) under port 8181, so you will need a delve client (which almost implemented in modern IDEs, text editors...) to debug the app.
 
 # :package: Used packages
 | Name                                                      | Version      | Type          |
