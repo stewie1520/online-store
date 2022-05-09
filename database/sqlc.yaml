@@ -3,5 +3,7 @@ packages:
   - path: "../internal/domain"
     name: "domain"
     engine: "postgresql"
-    schema: "schema.sql"
-    queries: "query.sql"
+    schema:
+      - "./category/schema.sql"
+    queries:
+      - "./category/query.sql"

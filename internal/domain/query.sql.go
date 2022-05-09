@@ -16,7 +16,7 @@ INSERT INTO categories (
 ) VALUES (
   $1, $2, $3, $4
 )
-RETURNING id, name, slug, author, isactive
+RETURNING id, name, slug, author, isactive, isdeleted
 `
 
 type CreateCategoryParams struct {
@@ -40,6 +40,7 @@ func (q *Queries) CreateCategory(ctx context.Context, arg CreateCategoryParams) 
 		&i.Slug,
 		&i.Author,
 		&i.Isactive,
+		&i.Isdeleted,
 	)
 	return i, err
 }
@@ -54,8 +55,49 @@ func (q *Queries) DeleteCategories(ctx context.Context, id int64) error {
 	return err
 }
 
+const fetchCategories = `-- name: FetchCategories :many
+SELECT id, name, slug, author, isactive, isdeleted FROM categories
+WHERE isDeleted = false
+LIMIT $1 OFFSET $2
+`
+
+type FetchCategoriesParams struct {
+	Limit  int32
+	Offset int32
+}
+
+func (q *Queries) FetchCategories(ctx context.Context, arg FetchCategoriesParams) ([]Category, error) {
+	rows, err := q.db.QueryContext(ctx, fetchCategories, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Category
+	for rows.Next() {
+		var i Category
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Slug,
+			&i.Author,
+			&i.Isactive,
+			&i.Isdeleted,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getCategory = `-- name: GetCategory :one
-SELECT id, name, slug, author, isactive FROM categories
+SELECT id, name, slug, author, isactive, isdeleted FROM categories
 WHERE id = $1 LIMIT 1
 `
 
@@ -68,12 +110,13 @@ func (q *Queries) GetCategory(ctx context.Context, id int64) (Category, error) {
 		&i.Slug,
 		&i.Author,
 		&i.Isactive,
+		&i.Isdeleted,
 	)
 	return i, err
 }
 
 const listCategories = `-- name: ListCategories :many
-SELECT id, name, slug, author, isactive FROM categories
+SELECT id, name, slug, author, isactive, isdeleted FROM categories
 ORDER BY name
 `
 
@@ -92,6 +135,7 @@ func (q *Queries) ListCategories(ctx context.Context) ([]Category, error) {
 			&i.Slug,
 			&i.Author,
 			&i.Isactive,
+			&i.Isdeleted,
 		); err != nil {
 			return nil, err
 		}

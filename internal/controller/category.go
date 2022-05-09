@@ -17,11 +17,42 @@ type categoryController struct {
 
 type CategoryController interface {
 	Create(*gin.Context)
+	FetchMany(*gin.Context)
 }
 
 func newCategoryController(cs service.CategoryService) CategoryController {
 	return &categoryController{
 		service: cs,
+	}
+}
+
+func (c *categoryController) FetchMany(ctx *gin.Context) {
+	var fetchDto dto.FetchManyCategoriesDto
+	if err := ctx.ShouldBindQuery(&fetchDto); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+			"status":  "error",
+		})
+		return
+	}
+
+	fetchParam := domain.FetchCategoriesParams{
+		Limit: fetchDto.Limit,
+		Offset: fetchDto.CalcOffset(),
+	}
+
+	bgCtx := context.Background()
+
+	if categories, err := c.service.FetchCategories(bgCtx, &fetchParam); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+			"status":  "error",
+		})
+	} else {
+		ctx.JSON(http.StatusCreated, gin.H{
+			"payload": categories,
+			"status":  "ok",
+		})
 	}
 }
 

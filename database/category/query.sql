@@ -14,6 +14,11 @@ INSERT INTO categories (
 )
 RETURNING *;
 
+-- name: FetchCategories :many
+SELECT * FROM categories
+WHERE isDeleted = false
+LIMIT $1 OFFSET $2;
+
 -- name: DeleteCategories :exec
 DELETE FROM categories
 WHERE id = $1;

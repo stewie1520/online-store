@@ -6,5 +6,6 @@ import (
 )
 
 func useCategory(routeGroup *gin.RouterGroup, categoryController controller.CategoryController) {
-	routeGroup.POST("/", categoryController.Create)
+	routeGroup.POST("", categoryController.Create)
+	routeGroup.GET("", categoryController.FetchMany)
 }

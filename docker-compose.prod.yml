@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    volumes:
+      - .:/app
+    environment:
+      GIN_MODE: 'release'
+      ONLINE_STORE_DEBUG_MODE: 'false'
+    ports:
+      - "80:8080"

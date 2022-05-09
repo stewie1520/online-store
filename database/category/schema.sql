@@ -3,5 +3,6 @@ CREATE TABLE categories (
   name text NOT NULL,
   slug text NOT NULL,
   author integer,
-  isActive boolean
+  isActive boolean,
+  isDeleted boolean
 )

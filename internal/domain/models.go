@@ -9,9 +9,10 @@ import (
 )
 
 type Category struct {
-	ID       int64
-	Name     string
-	Slug     string
-	Author   sql.NullInt32
-	Isactive sql.NullBool
+	ID        int64
+	Name      string
+	Slug      string
+	Author    sql.NullInt32
+	Isactive  sql.NullBool
+	Isdeleted sql.NullBool
 }

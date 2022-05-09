@@ -8,6 +8,8 @@ require (
 	github.com/spf13/viper v1.10.0
 )
 
+require github.com/gin-contrib/cors v1.3.1 // indirect
+
 require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
